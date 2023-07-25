@@ -49,42 +49,33 @@ function GlobalStats() {
   if (isError) return <div>Error</div>;
   if (data)
     return (
-      <Box
-        display={"flex"}
-        gap={3}
-        p={3}
-        borderBottom={"1px solid"}
-        borderColor={theme.palette.grey[400]}
-      >
-        {Object.entries(data?.data)
-          .slice(1, 7)
-          .map((item, index) => (
-            <Box display={"flex"} alignItems={"center"} gap={1}>
-              <Typography fontSize={14} color={theme.palette.grey[500]}>
-                {insertSpaces(item[0])}:
-              </Typography>
-              <Typography fontSize={13} color={theme.palette.grey[600]}>
-                {index === 3 || index === 4
-                  ? dolar(item[1]) + " $"
-                  : index === 5
-                  ? item[1].toFixed(3) + " %"
-                  : item[1]}
-              </Typography>
-            </Box>
-          ))}
-      </Box>
-    );
-  else
-    return (
-      <Box
-        display={"flex"}
-        gap={3}
-        p={3}
-        borderBottom={"1px solid"}
-        borderColor={theme.palette.grey[400]}
-      >
-        Error
-      </Box>
+      <>
+        <Box
+          display={"flex"}
+          gap={3}
+          p={3}
+          borderBottom={"1px solid"}
+          borderColor={theme.palette.grey[400]}
+        >
+          <Typography>Global Stats:</Typography>
+          {Object.entries(data?.data)
+            .slice(1, 7)
+            .map((item, index) => (
+              <Box display={"flex"} alignItems={"center"} gap={1}>
+                <Typography fontSize={14} color={theme.palette.grey[500]}>
+                  {insertSpaces(item[0])}:
+                </Typography>
+                <Typography fontSize={13} color={theme.palette.grey[600]}>
+                  {index === 3 || index === 4
+                    ? dolar(item[1]) + " $"
+                    : index === 5
+                    ? item[1].toFixed(3) + " %"
+                    : item[1]}
+                </Typography>
+              </Box>
+            ))}
+        </Box>
+      </>
     );
 }
 

@@ -7,7 +7,7 @@ function NewestCoin({ coins, title }) {
   const theme = useTheme();
   return (
     <Box>
-      <Typography mt={5} mb={2} variant="h5">
+      <Typography mt={3} mb={3} variant="h5">
         {title}
       </Typography>
       <Box
@@ -18,22 +18,25 @@ function NewestCoin({ coins, title }) {
         }}
       >
         {coins.map((coin) => (
-          <Link to={"/coin/" + coin.symbol}>
+          <Link to={"/coin/" + coin.uuid}>
             <Box
-              p={1}
+              p={0}
               style={{
-                background: theme.palette.grey[200],
+                background: theme.palette.grey[50],
+                border: "1px solid",
+                borderColor: theme.palette.grey[200],
                 display: "flex",
                 alignItems: "center",
                 gap: 4,
-                justifyContent: "space-between",
+                justifyContent: "space-around",
                 minHeight: 100,
+                maxHeight: 100,
                 borderRadius: 5,
               }}
             >
               <img src={coin.iconUrl} alt="" width={"30%"} />
               <Box>
-                <Typography>{coin.name}</Typography>
+                <Typography>{coin.name.slice(0, 15)}</Typography>
                 <Typography textAlign={"right"} color={theme.palette.grey[500]}>
                   {coin.symbol}
                 </Typography>

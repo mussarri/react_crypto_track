@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { dark, light } from "./theme.js";
 import { ThemeProvider } from "@emotion/react";
 import SingleCrypto from "./pages/SingleCrypto";
+console.log(process.env);
 
 function App() {
   const mode = useSelector((state) => state.mode.value);

@@ -2,14 +2,14 @@ import React from "react";
 import GlobalStats from "./components/GlobalStats";
 import CarouselFunction from "./components/Carousel";
 import CryptoList from "./components/CryptoList";
-import NewestAndBest from "./components/NewestAndBest";
+
+import NewsAndBestCoins from "./components/NewsAndBestCoins";
 
 function Home() {
   return (
     <>
       <GlobalStats />
-      <NewestAndBest />
-
+      <NewsAndBestCoins />
       <CarouselFunction />
 
       <CryptoList isHome={true} />

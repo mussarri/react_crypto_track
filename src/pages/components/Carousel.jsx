@@ -50,6 +50,7 @@ function CarouselFunction() {
                 name={coin.symbol}
                 price={coin.price.slice(0, 8)}
                 change={coin.change}
+                id={coin.uuid}
               />
             ))}
           </Slider>

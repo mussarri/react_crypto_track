@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Paper,
@@ -8,6 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useGetCoinsQuery } from "../../redux/api";
@@ -20,7 +21,25 @@ function CryptoList({ isHome = false }) {
     limit: isHome ? 10 : 50,
     orderBy: "marketCap",
   });
+  const [search, setSearch] = useState("");
   const theme = useTheme();
+  const filteredData = data?.data.coins.filter(
+    (coin) =>
+      coin.name.toLowerCase().includes(search) ||
+      coin.symbol.toLowerCase().includes(search)
+  );
+
+  const sortData = (param = "marketCap", desc = "desc", arr = filteredData) => {
+    if (desc === "desc")
+      filteredData.sort((a, b) => Number(b[param]) - Number(a[param]));
+    else filteredData.sort((a, b) => Number(a[param]) - Number(b[param]));
+  };
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // const formattedData = sortData("marketCap");
 
   if (isError) return <div>Error</div>;
   if (isLoading) return <div>Loading</div>;
@@ -31,6 +50,16 @@ function CryptoList({ isHome = false }) {
         <Typography px={2} mt={0} variant="h5">
           Today's Cryptocurrency Prices
         </Typography>
+        {!isHome && (
+          <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            size="small"
+            style={{ margin: "20px 20px 0px 20px" }}
+            onChange={handleChange}
+          />
+        )}
         <TableContainer
           component={Paper}
           sx={{
@@ -38,7 +67,7 @@ function CryptoList({ isHome = false }) {
             width: "98%",
             margin: "30px auto",
             padding: "10px 20px 10px 0px",
-            background: theme.palette.grey[100],
+            background: theme.palette.grey[50],
           }}
         >
           <Table
@@ -56,7 +85,7 @@ function CryptoList({ isHome = false }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.data.coins.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell align="right">{index + 1}</TableCell>
                   <TableCell
@@ -66,7 +95,7 @@ function CryptoList({ isHome = false }) {
                     style={{ display: "flex" }}
                   >
                     <Link
-                      to={"/coin/" + row.symbol}
+                      to={"/coin/" + row.uuid}
                       style={{ display: "flex" }}
                     >
                       <div style={{ height: 30 }}>
@@ -84,7 +113,7 @@ function CryptoList({ isHome = false }) {
                       <div>{row.name + " (" + row.symbol + ")"}</div>
                     </Link>
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" style={{fontWeight : "normal", fontSize: 16}}>
                     {row.price.slice(0, 8) + " $"}
                   </TableCell>
                   <TableCell
@@ -105,15 +134,13 @@ function CryptoList({ isHome = false }) {
               ))}
             </TableBody>
           </Table>
-          {isHome ? (
+          {isHome && (
             <Link
               to={"/cryptocurrencies"}
               style={{ float: "right", marginTop: 15 }}
             >
               Show More
             </Link>
-          ) : (
-            ""
           )}
         </TableContainer>
       </Box>

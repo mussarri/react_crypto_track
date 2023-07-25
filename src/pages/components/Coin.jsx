@@ -2,10 +2,10 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Coin({ url, name, price, change, theme, index }) {
+function Coin({ url, name, price, change, theme, index, id }) {
   return (
     <Box style={{ padding: 20 }}>
-      <Link to={"/coin/" + name}>
+      <Link to={"/coin/" + id}>
         <Box
           style={{
             display: "flex",
