@@ -1,9 +1,9 @@
 import React from "react";
-import GlobalStats from "./components/GlobalStats";
-import CarouselFunction from "./components/Carousel";
-import CryptoList from "./components/CryptoList";
+import GlobalStats from "./components/HomeComponents/GlobalStats.jsx";
+import CarouselFunction from "./components/HomeComponents/Carousel.jsx";
+import CryptoList from "./components/CryptoList.jsx";
 
-import NewsAndBestCoins from "./components/NewsAndBestCoins";
+import NewsAndBestCoins from "./components/HomeComponents/NewsAndBestCoins";
 
 function Home() {
   return (
@@ -11,7 +11,6 @@ function Home() {
       <GlobalStats />
       <NewsAndBestCoins />
       <CarouselFunction />
-
       <CryptoList isHome={true} />
     </>
   );

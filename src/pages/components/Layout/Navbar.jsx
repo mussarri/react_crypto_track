@@ -14,7 +14,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Link } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
-import { setMode } from "../../redux/themeSlice";
+import { setMode } from "../../../redux/themeSlice";
 import { useDispatch } from "react-redux";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { AccountCircle } from "@mui/icons-material";

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import React from "react";
-import { useGetGlobalStatsQuery } from "../../redux/api";
+import { useGetGlobalStatsQuery } from "../../../redux/api";
 
 export function dolar(number) {
   const intToString = (num) => {
@@ -32,7 +32,7 @@ export function dolar(number) {
   return intToString(value);
 }
 
-function insertSpaces(string) {
+export function insertSpaces(string) {
   const newString = string
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/([^0-9])([0-9])/g, "$1 $2")

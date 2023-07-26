@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Layout/Navbar";
 import { useTheme } from "@emotion/react";
-import Footer from "./components/Footer";
+import Footer from "./components/Layout/Footer";
 
 const contentStyle = { margin: "0px auto", padding: "0 10px" };
 

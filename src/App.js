@@ -16,6 +16,8 @@ function App() {
   const mode = useSelector((state) => state.mode.value);
   const theme = createTheme(mode === "dark" ? dark : light);
 
+ 
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -24,7 +26,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="cryptocurrencies" element={<CryptoCurrencies />} />
             <Route path="news" element={<News />} />
-            <Route path="coin/:symbol" element={<SingleCrypto />} />
+            <Route path="coin/:id" element={<SingleCrypto />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

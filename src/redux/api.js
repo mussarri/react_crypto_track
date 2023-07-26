@@ -37,11 +37,32 @@ export const coinApi = createApi({
       }),
     }),
     getSingleCoin: builder.query({
-      query: ({ id, period }) => ({
+      query: ({ id }) => ({
         url: `coin/${id}`,
         params: {
           referenceCurrencyUuid: "yhjMzLPhuIDl",
+          timePeriod: "24h",
+        },
+      }),
+    }),
+    getCoinPriceHistory: builder.query({
+      query: ({ id, period }) => ({
+        url: `coin/${id}/history`,
+        params: {
+          referenceCurrencyUuid: "yhjMzLPhuIDl",
           timePeriod: period,
+        },
+      }),
+    }),
+    getCoinExchanges: builder.query({
+      query: ({ id }) => ({
+        url: `coin/${id}/exchanges`,
+        params: {
+          referenceCurrencyUuid: "yhjMzLPhuIDl",
+          limit: "50",
+          offset: "0",
+          orderBy: "24hVolume",
+          orderDirection: "desc",
         },
       }),
     }),
@@ -74,6 +95,12 @@ export const newsApi = createApi({
   }),
 });
 
-export const { useGetCoinsQuery, useGetGlobalStatsQuery } = coinApi;
+export const {
+  useGetCoinsQuery,
+  useGetGlobalStatsQuery,
+  useGetSingleCoinQuery,
+  useGetCoinPriceHistoryQuery,
+  useGetCoinExchangesQuery,
+} = coinApi;
 
 export const { useGetNewsQuery } = newsApi;

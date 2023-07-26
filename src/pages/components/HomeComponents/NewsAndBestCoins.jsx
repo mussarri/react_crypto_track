@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import News from "./News";
-import NewestAndBest from "./NewestAndBest";
+import News from "../News";
+import NewestAndBest from "./NewestAndBest.jsx";
 
 function NewsAndBestCoins() {
   return (
@@ -13,7 +13,7 @@ function NewsAndBestCoins() {
         columnGap: 4,
       }}
     >
-      <News />
+      <News category={"Cryptocurrency"} count={9} isHome={true} />
       <NewestAndBest />
     </Box>
   );

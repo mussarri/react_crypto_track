@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useGetCoinsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
-import { dolar } from "./GlobalStats";
+import { dolar } from "./HomeComponents/GlobalStats";
 import { Link } from "react-router-dom";
 
 function CryptoList({ isHome = false }) {
@@ -28,7 +28,7 @@ function CryptoList({ isHome = false }) {
       coin.name.toLowerCase().includes(search) ||
       coin.symbol.toLowerCase().includes(search)
   );
-
+  // eslint-disable-next-line no-unused-vars
   const sortData = (param = "marketCap", desc = "desc", arr = filteredData) => {
     if (desc === "desc")
       filteredData.sort((a, b) => Number(b[param]) - Number(a[param]));
@@ -94,10 +94,7 @@ function CryptoList({ isHome = false }) {
                     scope="row"
                     style={{ display: "flex" }}
                   >
-                    <Link
-                      to={"/coin/" + row.uuid}
-                      style={{ display: "flex" }}
-                    >
+                    <Link to={"/coin/" + row.uuid} style={{ display: "flex" }}>
                       <div style={{ height: 30 }}>
                         <img
                           src={row.iconUrl}
@@ -113,7 +110,10 @@ function CryptoList({ isHome = false }) {
                       <div>{row.name + " (" + row.symbol + ")"}</div>
                     </Link>
                   </TableCell>
-                  <TableCell align="right" style={{fontWeight : "normal", fontSize: 16}}>
+                  <TableCell
+                    align="right"
+                    style={{ fontWeight: "normal", fontSize: 16 }}
+                  >
                     {row.price.slice(0, 8) + " $"}
                   </TableCell>
                   <TableCell

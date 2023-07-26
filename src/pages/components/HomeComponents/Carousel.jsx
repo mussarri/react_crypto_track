@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import { useGetCoinsQuery } from "../../redux/api";
+import { useGetCoinsQuery } from "../../../redux/api";
 import Coin from "./Coin";
 import { useTheme } from "@emotion/react";
 import { Typography } from "@mui/material";
