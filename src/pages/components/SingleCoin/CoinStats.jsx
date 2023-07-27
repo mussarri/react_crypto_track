@@ -20,7 +20,7 @@ function CoinStats({ coin }) {
   const handleChange = function (e) {
     setInput(e.target.value);
   };
-
+  
   return (
     <Box pr={3} borderRight="1px solid grey" style={{ overflowY: "scroll" }}>
       <Box display="flex" alignItems="center">

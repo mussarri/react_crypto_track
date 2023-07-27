@@ -13,7 +13,7 @@ function News({ category, count = 5, title = false, isHome = false }) {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const { data, isloading } = useGetNewsQuery({ category, count: count });
+  const { data, isloading, isError } = useGetNewsQuery({ category, count: count });
 
   const lineWrap = {
     display: "-webkit-box",
@@ -22,10 +22,10 @@ function News({ category, count = 5, title = false, isHome = false }) {
     overflow: "hidden",
     lineHeight: 1.2,
   };
-  if (data) {
-    const filterData = data.value.filter((item) => item.image);
+  if (!isError) {
+    const filterData = data?.value.filter((item) => item.image);
     const mapData = isHome
-      ? filterData.slice((page - 1) * pageSize, page * pageSize)
+      ? filterData?.slice((page - 1) * pageSize, page * pageSize)
       : filterData;
 
     return (

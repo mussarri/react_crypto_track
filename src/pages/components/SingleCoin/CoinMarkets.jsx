@@ -26,9 +26,8 @@ function CoinMarkets({ coin }) {
     setPage(value);
   };
 
-  if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
-  if (data) {
+  if (!isError) {
     return (
       <>
         <Typography px={3} pt={3} fontSize={22}>
