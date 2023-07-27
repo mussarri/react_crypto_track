@@ -8,7 +8,7 @@ import CoinMarkets from "./components/SingleCoin/CoinMarkets.jsx";
 import CoinNews from "./components/SingleCoin/CoinNews";
 import CoinAbout from "./components/SingleCoin/CoinAbout";
 import { useTheme } from "@emotion/react";
-
+import Loading from "./components/Loading";
 
 function SingleCrypto() {
   const { id } = useParams();
@@ -16,9 +16,8 @@ function SingleCrypto() {
 
   const { isLoading, isError, data } = useGetSingleCoinQuery({ id });
 
-  if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
-  if (data) {
+  if (!isError) {
     const coin = data.data.coin;
     return (
       <Box
@@ -28,16 +27,19 @@ function SingleCrypto() {
         overflowY="scroll"
         gridTemplateColumns="1fr 2.3fr 1fr"
       >
-        <CoinStats coin={coin} />
-        <Box borderRight="1px solid grey" style={{ overflowY: "scroll" }}>
-          <LineChart id={id} period="24h" />
-          <CoinMarkets coin={coin} />
-
-          <CoinAbout coin={coin} theme={theme} />
-        </Box>
-        <Box borderRight="1px solid grey" style={{ overflowY: "scroll" }}>
-          <CoinNews coin={coin} />
-        </Box>
+        {!isLoading ? <CoinStats coin={coin} /> : <Loading isCoinStats={true} />}
+        {!isLoading && (
+          <>
+            <Box borderRight="1px solid grey" style={{ overflowY: "scroll" }}>
+              <LineChart id={id} period="24h" />
+              <CoinMarkets coin={coin} />
+              <CoinAbout coin={coin} theme={theme} />
+            </Box>
+            <Box borderRight="1px solid grey" style={{ overflowY: "scroll" }}>
+              <CoinNews coin={coin} />
+            </Box>
+          </>
+        )}
       </Box>
     );
   }

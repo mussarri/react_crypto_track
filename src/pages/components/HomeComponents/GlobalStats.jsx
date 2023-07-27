@@ -45,7 +45,7 @@ function GlobalStats() {
   const theme = useTheme();
   const { data, isLoading, isError } = useGetGlobalStatsQuery();
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading) return <div></div>;
   if (isError) return <div>Error</div>;
   if (data)
     return (

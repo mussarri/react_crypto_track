@@ -15,6 +15,7 @@ import { useGetCoinsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
 import { dolar } from "./HomeComponents/GlobalStats";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 function CryptoList({ isHome = false }) {
   const { data, isError, isLoading } = useGetCoinsQuery({
@@ -85,53 +86,61 @@ function CryptoList({ isHome = false }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell align="right">{index + 1}</TableCell>
-                  <TableCell
-                    align="left"
-                    component="th"
-                    scope="row"
-                    style={{ display: "flex" }}
-                  >
-                    <Link to={"/coin/" + row.uuid} style={{ display: "flex" }}>
-                      <div style={{ height: 30 }}>
-                        <img
-                          src={row.iconUrl}
-                          style={{
-                            width: 30,
-                            height: 30,
-                            marginRight: "15px",
-                            objectFit: "cover",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                      <div>{row.name + " (" + row.symbol + ")"}</div>
-                    </Link>
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    style={{ fontWeight: "normal", fontSize: 16 }}
-                  >
-                    {row.price.slice(0, 8) + " $"}
-                  </TableCell>
-                  <TableCell
-                    style={{
-                      color: row.change.slice(0, 1) === "-" ? "red" : "green",
-                    }}
-                    align="right"
-                  >
-                    {row.change + " %"}
-                  </TableCell>
-                  <TableCell align="right">
-                    {dolar(row["24hVolume"]) + " $"}
-                  </TableCell>
-                  <TableCell align="right">
-                    {dolar(row.marketCap) + " $"}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {data &&
+                filteredData.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="right">{index + 1}</TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      scope="row"
+                      style={{ display: "flex" }}
+                    >
+                      <Link
+                        to={"/coin/" + row.uuid}
+                        style={{ display: "flex" }}
+                      >
+                        <div style={{ height: 30 }}>
+                          <img
+                            src={row.iconUrl}
+                            style={{
+                              width: 30,
+                              height: 30,
+                              marginRight: "15px",
+                              objectFit: "cover",
+                            }}
+                            alt=""
+                          />
+                        </div>
+                        <div>{row.name + " (" + row.symbol + ")"}</div>
+                      </Link>
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ fontWeight: "normal", fontSize: 16 }}
+                    >
+                      {row.price.slice(0, 8) + " $"}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: row.change.slice(0, 1) === "-" ? "red" : "green",
+                      }}
+                      align="right"
+                    >
+                      {row.change + " %"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {dolar(row["24hVolume"]) + " $"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {dolar(row.marketCap) + " $"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              {isLoading &&
+                Array(10)
+                  .fill(0)
+                  .map(() => <Loading isCryptoList={true} />)}
             </TableBody>
           </Table>
           {isHome && (

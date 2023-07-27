@@ -2,8 +2,9 @@ import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
-function NewestCoin({ coins, title }) {
+function NewestCoin({ coins, title, isLoading }) {
   const theme = useTheme();
   return (
     <Box>
@@ -17,33 +18,41 @@ function NewestCoin({ coins, title }) {
           columnGap: 1,
         }}
       >
-        {coins.map((coin) => (
-          <Link to={"/coin/" + coin.uuid}>
-            <Box
-              p={0}
-              style={{
-                background: theme.palette.grey[50],
-                border: "1px solid",
-                borderColor: theme.palette.grey[200],
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-                justifyContent: "space-around",
-                minHeight: 100,
-                maxHeight: 100,
-                borderRadius: 5,
-              }}
-            >
-              <img src={coin.iconUrl} alt="" width={"30%"} />
-              <Box>
-                <Typography>{coin.name.slice(0, 15)}</Typography>
-                <Typography textAlign={"right"} color={theme.palette.grey[500]}>
-                  {coin.symbol}
-                </Typography>
+        {coins &&
+          coins?.map((coin) => (
+            <Link to={"/coin/" + coin.uuid}>
+              <Box
+                p={0}
+                style={{
+                  background: theme.palette.grey[50],
+                  border: "1px solid",
+                  borderColor: theme.palette.grey[200],
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  justifyContent: "space-around",
+                  minHeight: 100,
+                  maxHeight: 100,
+                  borderRadius: 5,
+                }}
+              >
+                <img src={coin.iconUrl} alt="" width={"30%"} />
+                <Box>
+                  <Typography>{coin.name.slice(0, 15)}</Typography>
+                  <Typography
+                    textAlign={"right"}
+                    color={theme.palette.grey[500]}
+                  >
+                    {coin.symbol}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        {isLoading &&
+          Array(3)
+            .fill(0)
+            .map(() => <Loading isNewest={true} />)}
       </Box>
     </Box>
   );

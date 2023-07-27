@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetNewsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
+import Loading from "./Loading";
 
 function News({ category, count = 5, title = false, isHome = false }) {
   const theme = useTheme();
@@ -12,7 +13,7 @@ function News({ category, count = 5, title = false, isHome = false }) {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const { data } = useGetNewsQuery({ category, count: count });
+  const { data, isloading } = useGetNewsQuery({ category, count: count });
 
   const lineWrap = {
     display: "-webkit-box",
@@ -32,8 +33,12 @@ function News({ category, count = 5, title = false, isHome = false }) {
         <Typography pt={2} mb={1} variant="h5">
           {title && title} News
         </Typography>
-        {mapData.map((news) => {
-          return (
+        {isloading &&
+          Array(isHome ? pageSize : count)
+            .fill(0)
+            .map(() => <Loading isNew={true} isHome={isHome} />)}
+        {data &&
+          mapData.map((news) => (
             <Box>
               <Box
                 display={isHome && "flex"}
@@ -104,8 +109,8 @@ function News({ category, count = 5, title = false, isHome = false }) {
                 )}
               </Box>
             </Box>
-          );
-        })}
+          ))}
+
         {isHome && (
           <Pagination
             style={{ float: "right" }}
