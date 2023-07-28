@@ -51,7 +51,8 @@ function GlobalStats() {
     return (
       <>
         <Box
-          display={"flex"}
+          display="flex"
+          flexWrap="wrap"
           gap={3}
           p={3}
           borderBottom={"1px solid"}

@@ -10,6 +10,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useGetCoinsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
@@ -40,14 +41,17 @@ function CryptoList({ isHome = false }) {
     setSearch(e.target.value);
   };
 
+  const md = useMediaQuery("(min-width:772px)");
+  const sm = useMediaQuery("(min-width:550px)");
+  const xs = useMediaQuery("(min-width:425px)");
+
   // const formattedData = sortData("marketCap");
 
   if (isError) return <div>Error</div>;
-  if (isLoading) return <div>Loading</div>;
 
-  if (data)
+  if (!isError)
     return (
-      <Box pt={5}>
+      <Box pt={5} width={"100%"}>
         <Typography px={2} mt={0} variant="h5">
           Today's Cryptocurrency Prices
         </Typography>
@@ -72,17 +76,17 @@ function CryptoList({ isHome = false }) {
           }}
         >
           <Table
-            sx={{ width: "100%", minWidth: 650 }}
+            sx={{ width: "100%", minWidth: md && 650 }}
             aria-label="simple table"
           >
             <TableHead>
               <TableRow>
                 <TableCell align="right">#</TableCell>
                 <TableCell align="left">NAME</TableCell>
-                <TableCell align="right">PRICE</TableCell>
-                <TableCell align="right">24H CHANGE</TableCell>
-                <TableCell align="right">24H VOLUME</TableCell>
-                <TableCell align="right">MARKET CAP</TableCell>
+                {xs && <TableCell align="right">PRICE</TableCell>}
+                {sm && <TableCell align="right">24H CHANGE</TableCell>}
+                {md && <TableCell align="right">24H VOLUME</TableCell>}
+                {md && <TableCell align="right">MARKET CAP</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -115,26 +119,35 @@ function CryptoList({ isHome = false }) {
                         <div>{row.name + " (" + row.symbol + ")"}</div>
                       </Link>
                     </TableCell>
-                    <TableCell
-                      align="right"
-                      style={{ fontWeight: "normal", fontSize: 16 }}
-                    >
-                      {row.price.slice(0, 8) + " $"}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: row.change.slice(0, 1) === "-" ? "red" : "green",
-                      }}
-                      align="right"
-                    >
-                      {row.change + " %"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {dolar(row["24hVolume"]) + " $"}
-                    </TableCell>
-                    <TableCell align="right">
-                      {dolar(row.marketCap) + " $"}
-                    </TableCell>
+                    {xs && (
+                      <TableCell
+                        align="right"
+                        style={{ fontWeight: "normal", fontSize: 16 }}
+                      >
+                        {row.price.slice(0, 8) + " $"}
+                      </TableCell>
+                    )}
+                    {sm && (
+                      <TableCell
+                        style={{
+                          color:
+                            row.change.slice(0, 1) === "-" ? "red" : "green",
+                        }}
+                        align="right"
+                      >
+                        {row.change + " %"}
+                      </TableCell>
+                    )}
+                    {md && (
+                      <TableCell align="right">
+                        {dolar(row["24hVolume"]) + " $"}
+                      </TableCell>
+                    )}
+                    {md && (
+                      <TableCell align="right">
+                        {dolar(row.marketCap) + " $"}
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
               {isLoading &&

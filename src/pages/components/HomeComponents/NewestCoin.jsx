@@ -1,10 +1,12 @@
 import { useTheme } from "@emotion/react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
 
 function NewestCoin({ coins, title, isLoading }) {
+  const sm = useMediaQuery("(max-width:500px)");
+
   const theme = useTheme();
   return (
     <Box>
@@ -28,15 +30,16 @@ function NewestCoin({ coins, title, isLoading }) {
                   border: "1px solid",
                   borderColor: theme.palette.grey[200],
                   display: "flex",
+                  flexDirection: sm ? "column" : "row",
                   alignItems: "center",
                   gap: 4,
                   justifyContent: "space-around",
-                  minHeight: 100,
-                  maxHeight: 100,
+                  minHeight: sm ? 170 : 100,
+                  maxHeight: sm ? 170 : 100,
                   borderRadius: 5,
                 }}
               >
-                <img src={coin.iconUrl} alt="" width={"30%"} />
+                <img src={coin.iconUrl} alt="" width={sm ? "50%" : "30%"} />
                 <Box>
                   <Typography>{coin.name.slice(0, 15)}</Typography>
                   <Typography

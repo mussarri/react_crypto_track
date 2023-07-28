@@ -5,8 +5,8 @@ import { useGetGlobalStatsQuery } from "../../../redux/api";
 
 function NewestAndBest() {
   const { isLoading, isError, data } = useGetGlobalStatsQuery();
+  
   if (isError) return <div>Error</div>;
-
   if (!isError)
     return (
       <Box>

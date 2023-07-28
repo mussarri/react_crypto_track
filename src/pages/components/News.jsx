@@ -5,7 +5,7 @@ import { useGetNewsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
 import Loading from "./Loading";
 
-function News({ category, count = 5, title = false, isHome = false }) {
+function News({ category, count = 5, title = false, isHome = false , lg}) {
   const theme = useTheme();
   // eslint-disable-next-line no-unused-vars
   const [pageSize, setPageSize] = useState(3);
@@ -41,12 +41,12 @@ function News({ category, count = 5, title = false, isHome = false }) {
           mapData.map((news) => (
             <Box>
               <Box
-                display={isHome && "flex"}
+                display={(isHome || !lg) && "flex"}
                 justifyContent="space-between"
                 py={3}
                 gap={2}
               >
-                {!isHome ? (
+                {(!isHome && lg) ? (
                   <>
                     <Box display="flex" justifyContent="space-between" gap={2}>
                       <img

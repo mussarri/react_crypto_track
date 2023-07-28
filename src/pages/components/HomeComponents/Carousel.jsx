@@ -3,21 +3,8 @@ import Slider from "react-slick";
 import { useGetCoinsQuery } from "../../../redux/api";
 import Coin from "./Coin";
 import { useTheme } from "@emotion/react";
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Skeleton, Typography, useMediaQuery } from "@mui/material";
 import Loading from "../Loading";
-const settings = {
-  dots: false,
-  infinite: true,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  autoplay: true,
-  speed: 10000,
-  autoplaySpeed: 10000,
-  cssEase: "linear",
-  variableWidth: false,
-  arrows: false,
-  pauseOnHover: false,
-};
 
 function CarouselFunction() {
   // eslint-disable-next-line no-unused-vars
@@ -26,7 +13,24 @@ function CarouselFunction() {
     orderBy: "change",
   });
   const theme = useTheme();
-  console.log(Array(10).fill(0));
+  const lg = useMediaQuery("(min-width:1150px)");
+  const md = useMediaQuery("(min-width:900px)");
+  const sm = useMediaQuery("(min-width:600px)");
+  console.log(theme);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow:lg ? 4 : md ? 3 : sm ? 2 : 1,
+    slidesToScroll: 4,
+    autoplay: true,
+    speed: 10000,
+    autoplaySpeed: 10000,
+    cssEase: "linear",
+    variableWidth: false,
+    arrows: false,
+    pauseOnHover: false,
+  };
 
   if (isError) return <div>Error</div>;
 

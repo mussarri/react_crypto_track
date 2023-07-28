@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
-import { Box, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Box,
+  MenuItem,
+  Select,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useGetCoinPriceHistoryQuery } from "../../../redux/api";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
@@ -8,6 +14,7 @@ Chart.register(...registerables);
 function LineChart({ id }) {
   const [input, setInput] = useState("24h");
   const { data } = useGetCoinPriceHistoryQuery({ id, period: input });
+  const md = useMediaQuery("(min-width:800px)");
 
   if (data) {
     let priceData = [...data.data.history];
@@ -42,7 +49,13 @@ function LineChart({ id }) {
       ],
     };
     return (
-      <Box style={{ padding: 20, width: "100%" }}>
+      <Box
+        style={{
+          padding: md ? 20 : 0,
+          paddingTop: md ? 0 : 50,
+          width: "100%",
+        }}
+      >
         <Box display="flex" justifyContent="space-between">
           <Typography variant="h6">Chart</Typography>
 
@@ -55,10 +68,7 @@ function LineChart({ id }) {
             defaultValue={input}
           >
             {["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"].map((item) => (
-              <MenuItem
-                onClick={() => setInput(item)}
-                value={item}
-              >
+              <MenuItem onClick={() => setInput(item)} value={item}>
                 {item}
               </MenuItem>
             ))}

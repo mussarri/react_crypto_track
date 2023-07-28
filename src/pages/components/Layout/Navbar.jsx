@@ -39,7 +39,7 @@ function Navbar() {
         color: theme.palette.grey[800],
         background: theme.palette.grey[50],
         boxShadow: theme.shadows[3],
-        padding: "5px 20px",
+        padding: "5px 10px",
       }}
     >
       <Container maxWidth="xl">

@@ -1,14 +1,15 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import React from "react";
 import News from "../News";
 import NewestAndBest from "./NewestAndBest.jsx";
 
 function NewsAndBestCoins() {
+  const isMobile = useMediaQuery('(max-width:950px)');
   return (
     <Box
       padding={2}
       sx={{
-        display: "grid",
+        display: isMobile ? "block" : "grid",
         gridTemplateColumns: "repeat(2, 1fr)",
         columnGap: 4,
       }}

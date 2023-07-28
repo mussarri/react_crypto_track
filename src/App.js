@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import CryptoCurrencies from "./pages/CryptoCurrencies";
 import News from "./pages/News";
 import NoPage from "./pages/NoPage";
-import { createTheme } from "@mui/material";
+import { createTheme, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import { dark, light } from "./theme.js";
 import { ThemeProvider } from "@emotion/react";
@@ -15,6 +15,10 @@ console.log(process.env);
 function App() {
   const mode = useSelector((state) => state.mode.value);
   const theme = createTheme(mode === "dark" ? dark : light);
+
+  const matches = useMediaQuery('(max-width:900px)');
+
+  console.log(matches);
 
  
 

@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useState } from "react";
 import { dolar } from "../HomeComponents/GlobalStats";
@@ -25,12 +26,16 @@ function CoinMarkets({ coin }) {
   const handleChange = (event, value) => {
     setPage(value);
   };
+  const lg = useMediaQuery("(min-width:1300px)");
+  const grid = useMediaQuery("(min-width:800px)");
+  const md = useMediaQuery("(min-width:500px)");
+  const sm = useMediaQuery("(min-width:410px)");
 
   if (isError) return <div>Error</div>;
   if (!isError) {
     return (
       <>
-        <Typography px={3} pt={3} fontSize={22}>
+        <Typography mt={5} px={grid && 2} fontSize={22}>
           {coin.name} Markets
         </Typography>
         <TableContainer
@@ -43,16 +48,16 @@ function CoinMarkets({ coin }) {
           }}
         >
           <Table
-            sx={{ width: "100%", minWidth: 650 }}
+            sx={{ width: "100%", minWidth: lg && 650 }}
             aria-label="simple table"
           >
             <TableHead>
               <TableRow>
                 <TableCell align="right">#</TableCell>
-                <TableCell align="left">Exchange</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Btc Price</TableCell>
-                <TableCell align="right">24H Volume</TableCell>
+                <TableCell align={sm ? "left" : "right"}>Exchange</TableCell>
+                {sm && <TableCell align="right">Price</TableCell>}
+                {md && <TableCell align="right">Btc Price</TableCell>}
+                {lg && <TableCell align="right">24H Volume</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -65,7 +70,7 @@ function CoinMarkets({ coin }) {
                           {(page - 1) * pageSize + index + 1}
                         </TableCell>
                         <TableCell
-                          align="left"
+                          align={sm ? "left" : "right"}
                           component="th"
                           scope="row"
                           style={{ display: "flex" }}
@@ -86,19 +91,27 @@ function CoinMarkets({ coin }) {
                             <div>{row.name}</div>
                           </Box>
                         </TableCell>
-                        <TableCell
-                          align="right"
-                          style={{ fontWeight: "normal", fontSize: 16 }}
-                        >
-                          {row.price.slice(0, 8) + " $"}
-                        </TableCell>
 
-                        <TableCell align="right">
-                          {row.btcPrice.slice(0, 8)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {dolar(row["24hVolume"]) + " $"}
-                        </TableCell>
+                        {sm && (
+                          <TableCell
+                            align="right"
+                            style={{ fontWeight: "normal", fontSize: 16 }}
+                          >
+                            {row.price.slice(0, 8) + " $"}
+                          </TableCell>
+                        )}
+
+                        {md && (
+                          <TableCell align="right">
+                            {row.btcPrice.slice(0, 8)}
+                          </TableCell>
+                        )}
+
+                        {lg && (
+                          <TableCell alglign="right">
+                            {dolar(row["24hVolume"]) + " $"}
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))
                 : Array(10)
