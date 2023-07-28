@@ -28,6 +28,8 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
       ? filterData?.slice((page - 1) * pageSize, page * pageSize)
       : filterData;
 
+    
+
     return (
       <Box pr={3}>
         <Typography pt={2} mb={1} variant="h5">
@@ -110,6 +112,7 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
               </Box>
             </Box>
           ))}
+        {mapData.length < 1 ? "There is no news" : ""}  
 
         {isHome && (
           <Pagination

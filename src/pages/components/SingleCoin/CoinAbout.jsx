@@ -8,7 +8,7 @@ function CoinAbout({ coin , theme}) {
         {coin.name} About
       </Typography>
       <Typography p={3} pt={0} fontSize={13} color={theme.palette.grey[500]}>
-        {coin.description}
+        {coin.description || "There is no information."}
       </Typography>
     </div>
   );

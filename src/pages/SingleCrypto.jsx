@@ -19,6 +19,8 @@ function SingleCrypto() {
   const lg = useMediaQuery("(min-width:1150px)");
   const md = useMediaQuery("(min-width:800px)");
 
+  console.log(data);
+
   if (isError) return <div>Error</div>;
   if (!isError) {
     const coin = data?.data.coin;

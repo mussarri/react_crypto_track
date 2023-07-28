@@ -121,7 +121,7 @@ function CoinMarkets({ coin }) {
           </Table>
           <Pagination
             style={{ float: "right", paddingTop: 15 }}
-            count={5}
+            count={Math.ceil(data?.data.exchanges.length % 5)}
             size="small"
             onChange={handleChange}
           />

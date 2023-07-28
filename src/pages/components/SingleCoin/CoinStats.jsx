@@ -63,9 +63,9 @@ function CoinStats({ coin }) {
             mb={3}
             fontSize={20}
             textAlign={md ? "left" : "right"}
-            color={coin.change.slice(0, 1) === "-" ? "red" : "green"}
+            color={coin.change?.slice(0, 1) === "-" ? "red" : "green"}
           >
-            {coin.change}%
+            {coin.change && coin.change}%
           </Typography>
         </Box>
       </Box>

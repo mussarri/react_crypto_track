@@ -75,7 +75,7 @@ function LineChart({ id }) {
           </Select>
         </Box>
         <Typography fontSize={13}>
-          {input + " change: " + data.data.change}%
+          {input + " change: " + (data.data.change && data.data.change)}%
         </Typography>
         <Line options={options} data={lineData} />
       </Box>
