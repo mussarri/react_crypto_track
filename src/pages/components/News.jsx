@@ -5,7 +5,7 @@ import { useGetNewsQuery } from "../../redux/api";
 import { useTheme } from "@emotion/react";
 import Loading from "./Loading";
 
-function News({ category, count = 5, title = false, isHome = false , lg}) {
+function News({ category, count = 5, title = false, isHome = false, lg }) {
   const theme = useTheme();
   // eslint-disable-next-line no-unused-vars
   const [pageSize, setPageSize] = useState(3);
@@ -13,7 +13,10 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const { data, isloading, isError } = useGetNewsQuery({ category, count: count });
+  const { data, isloading, isError } = useGetNewsQuery({
+    category,
+    count: count,
+  });
 
   const lineWrap = {
     display: "-webkit-box",
@@ -22,6 +25,9 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
     overflow: "hidden",
     lineHeight: 1.2,
   };
+
+  if (isError) return <div>Error</div>;
+
   if (!isError) {
     const filterData = data?.value.filter((item) => item.image);
     const mapData = isHome
@@ -48,7 +54,7 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
                 py={3}
                 gap={2}
               >
-                {(!isHome && lg) ? (
+                {!isHome && lg ? (
                   <>
                     <Box display="flex" justifyContent="space-between" gap={2}>
                       <img
@@ -112,7 +118,8 @@ function News({ category, count = 5, title = false, isHome = false , lg}) {
               </Box>
             </Box>
           ))}
-        {mapData.length < 1 ? "There is no news" : ""}  
+
+        {data?.value.length < 1 ? "There is no news" : ""}  
 
         {isHome && (
           <Pagination
