@@ -42,7 +42,7 @@ function LineChart({ id }) {
       datasets: [
         {
           label: "Price",
-          data: priceData.map((item) => item.price.slice(0, 8)).reverse(),
+          data: priceData.map((item) => item.price?.slice(0, 8)).reverse(),
           borderColor: "rgb(255, 99, 132)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },

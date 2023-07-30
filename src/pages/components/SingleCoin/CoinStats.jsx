@@ -56,7 +56,7 @@ function CoinStats({ coin }) {
             mt={md && 2}
             variant={sm ? "h3" : xs ? "h4" : "h5"}
           >
-            {formatter.format(coin.price.slice(0, 8))}
+            {formatter.format(coin.price?.slice(0, 8))}
           </Typography>
           <Typography
             mt={1}
@@ -126,20 +126,20 @@ function CoinStats({ coin }) {
           </Typography>
 
           <Typography color={theme.palette.grey[400]} fontSize={md ? 14 : 16}>
-            {new Date(coin.allTimeHigh.timestamp * 1000).toLocaleDateString(
+            {new Date(coin.allTimeHigh?.timestamp * 1000).toLocaleDateString(
               "en-GB"
             )}
           </Typography>
         </Box>
         <Box>
           <Typography fontSize={md ? 13 : 15} fontWeight="bolder">
-            {formatter.format(coin.allTimeHigh.price.slice(0, 8))}
+            {formatter.format(coin.allTimeHigh.price?.slice(0, 8))}
           </Typography>
           <Typography
             color={
               coin.allTimeHigh.price - coin.price > 0
                 ? "red"
-                : theme.color.palette[400]
+                : theme.palette.grey[400]
             }
             fontSize={md ? 14 : 16}
             textAlign="right"
